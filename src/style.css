@@ -18,7 +18,7 @@ body {
   justify-content: center;
 }
 
-#root > div {
+.ball {
   width: 100px;
   height: 100px;
   background: hotpink;
@@ -31,6 +31,6 @@ body {
   white-space: pre;
 }
 
-#root > div:active {
+.ball:active {
   cursor: -webkit-grabbing;
 }
