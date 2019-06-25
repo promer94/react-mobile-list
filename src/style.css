@@ -2,7 +2,6 @@
   box-sizing: border-box;
 }
 
-html,
 body {
   margin: 0;
   padding: 0;
@@ -15,22 +14,29 @@ body {
   font-size: 12px;
   font-weight: 600;
   display: flex;
-  justify-content: center;
-}
-
-.ball {
-  width: 100px;
-  height: 100px;
-  background: hotpink;
-  border-radius: 50%;
-  cursor: -webkit-grab;
-  display: flex;
   align-items: center;
-  justify-content: center;
-  color: white;
-  white-space: pre;
+  flex-direction: column;
 }
 
+.List {
+  cursor: -webkit-grab;
+  white-space: pre;
+  width: 100vw;
+  background-color: yellowgreen;
+  height: calc(100vh - 75px);
+}
+.loading {
+  display: flex;
+  justify-content: center;
+  height: 100px;
+  align-items: center;
+  background-color: pink;
+}
+.tips {
+  color: black;
+  font-size: 14px;
+  font-weight: 500;
+}
 .ball:active {
   cursor: -webkit-grabbing;
 }

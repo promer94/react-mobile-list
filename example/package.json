@@ -16,12 +16,16 @@
     "scheduler/tracing": "../node_modules/scheduler/tracing-profiling",
     "react-spring": "../node_modules/react-spring",
     "react-with-gesture": "../node_modules/react-with-gesture",
-    "lodash": "../node_modules/lodash"
+    "lodash": "../node_modules/lodash",
+    "react-loading": "../node_modules/react-loading",
+    "react-window": "../node_modules/react-window/dist",
+    "react-window-infinite-loader": "../node_modules/react-window-infinite-loader/dist",
+    "react-virtualized-auto-sizer": "../node_modules/react-virtualized-auto-sizer/dist"
   },
   "devDependencies": {
-    "@types/react": "^16.8.15",
+    "@types/react": "^16.8.22",
     "@types/react-dom": "^16.8.4",
     "parcel": "^1.12.3",
-    "typescript": "^3.4.5"
+    "typescript": "^3.5.2"
   }
 }

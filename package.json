@@ -9,7 +9,7 @@
     "./src/style.css"
   ],
   "scripts": {
-    "start": "tsdx watch",
+    "start": "node --max_old_space_size=8192 node_modules/tsdx/dist/index.js watch",
     "build": "tsdx build",
     "test": "tsdx test --env=jsdom"
   },
@@ -39,10 +39,18 @@
     "pretty-quick": "^1.11.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-loading": "^2.0.3",
     "react-spring": "^8.0.25",
+    "react-virtualized-auto-sizer": "^1.0.2",
+    "react-window": "^1.8.3",
+    "react-window-infinite-loader": "^1.0.3",
     "react-with-gesture": "^4.0.8",
     "tsdx": "^0.7.2",
     "tslib": "^1.10.0",
     "typescript": "^3.5.2"
+  },
+  "dependencies": {
+    "@types/react-virtualized-auto-sizer": "^1.0.0",
+    "@types/react-window": "^1.8.0"
   }
 }
