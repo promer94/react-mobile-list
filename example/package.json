@@ -8,7 +8,8 @@
     "build": "parcel build index.html"
   },
   "dependencies": {
-    "react-app-polyfill": "^1.0.0"
+    "react-app-polyfill": "^1.0.0",
+    "react-window": "^1.8.3"
   },
   "alias": {
     "react": "../node_modules/react",
@@ -17,10 +18,7 @@
     "react-spring": "../node_modules/react-spring",
     "react-with-gesture": "../node_modules/react-with-gesture",
     "lodash": "../node_modules/lodash",
-    "react-loading": "../node_modules/react-loading",
-    "react-window": "../node_modules/react-window/dist",
-    "react-window-infinite-loader": "../node_modules/react-window-infinite-loader/dist",
-    "react-virtualized-auto-sizer": "../node_modules/react-virtualized-auto-sizer/dist"
+    "react-loading": "../node_modules/react-loading"
   },
   "devDependencies": {
     "@types/react": "^16.8.22",

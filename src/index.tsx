@@ -47,6 +47,14 @@ const reducer = (state: InitialState, action: Action) => {
       return state;
   }
 };
+
+const innerDiv = React.forwardRef((props, ref?: React.Ref<HTMLDivElement>) => (
+  <div id="__LISTWRAPPER" ref={ref} {...props} />
+));
+function canRefresh() {
+  const list = document.getElementById('__LISTWRAPPER');
+  return list && list.scrollTop === 0;
+}
 export function Thing() {
   const [{ y }, set] = useSpring(() => ({ y: 0 }));
   const [{ op }, setop] = useSpring(() => ({ op: 0 }));
@@ -64,53 +72,57 @@ export function Thing() {
       });
     }
   }, []);
-  useEffect(() => {
-
-  })
+  useEffect(() => {});
   const bind = useGesture(({ down, delta, velocity }) => {
     velocity = clamp(velocity, 1, 8);
-    if (down) {
-      if (delta[1] <= 75) {
-        set({
-          y: delta[1],
-          config: { mass: velocity, tension: 500 * velocity, friction: 50 },
-        });
-        if (delta[1] > 70) {
-          settext('松开刷新');
-        } else {
-          if (delta[1] >= 25) {
-            setop({
-              op: delta[1] / 25 - 1,
-            });
-          }
-        }
-      }
-    } else {
-      setop({
-        op: 0,
-      });
-      if (!loading.current) {
-        if (delta[1] > 70) {
-          loading.current = true;
-          setstate(loading.current);
+    if (delta[1] > 0 && canRefresh()) {
+      if (down) {
+        if (delta[1] <= 75) {
           set({
-            y: 50,
+            y: delta[1],
             config: { mass: velocity, tension: 500 * velocity, friction: 50 },
           });
-          refresh().then(() => {
-            loading.current = false;
+          if (delta[1] > 70) {
+            settext('Release to Refresh');
+          } else {
+            if (delta[1] >= 25) {
+              setop({
+                op: delta[1] / 25 - 1,
+              });
+            }
+          }
+        }
+      } else {
+        setop({
+          op: 0,
+        });
+        if (!loading.current) {
+          if (delta[1] > 70) {
+            loading.current = true;
             setstate(loading.current);
-            settext('Release to refresh');
+            set({
+              y: 50,
+              config: { mass: velocity, tension: 500 * velocity, friction: 50 },
+            });
+            refresh().then(() => {
+              loading.current = false;
+              setstate(loading.current);
+              settext('Pull to refresh');
+              set({
+                y: 0,
+                config: {
+                  mass: velocity,
+                  tension: 500 * velocity,
+                  friction: 50,
+                },
+              });
+            });
+          } else {
             set({
               y: 0,
               config: { mass: velocity, tension: 500 * velocity, friction: 50 },
             });
-          });
-        } else {
-          set({
-            y: 0,
-            config: { mass: velocity, tension: 500 * velocity, friction: 50 },
-          });
+          }
         }
       }
     }
@@ -131,18 +143,18 @@ export function Thing() {
             width={25}
           ></ReactLoading>
         ) : (
-            <animated.div
-              className="tips"
-              style={{
-                opacity: op.interpolate(o => o),
-                transform: y.interpolate(
-                  (y: number) => `translateY(${-50 + y}px)`
-                ),
-              }}
-            >
-              {text}
-            </animated.div>
-          )}
+          <animated.div
+            className="tips"
+            style={{
+              opacity: op.interpolate(o => o),
+              transform: y.interpolate(
+                (y: number) => `translateY(${-50 + y}px)`
+              ),
+            }}
+          >
+            {text}
+          </animated.div>
+        )}
       </div>
       <animated.div
         className="List"
@@ -155,6 +167,7 @@ export function Thing() {
         <List
           height={size.height}
           itemCount={1000}
+          outerElementType={innerDiv}
           itemSize={getItemSize}
           width={size.width}
         >
